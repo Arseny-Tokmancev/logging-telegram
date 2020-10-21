@@ -15,7 +15,8 @@ while journald.poll() == None:
         message = message.decode()
         # print(message)
         # print(last_message.message)
-        if last_message == None or (len(last_message.message + '\n' + message) > 4096):
+        editing_message = last_message.message + '\n\n' + message
+        if last_message == None or (len(editing_message) > 4096):
             last_message = client.send_message(destination_id, message)
         else:
-            last_message = last_message.edit(last_message.message + '\n' + message)
+            last_message = last_message.edit(editing_message)
