@@ -13,6 +13,8 @@ while journald.poll() == None:
     message = journald.stdout.readline()
     if message:
         message = message.decode()
+        _, _, timestamp, _, _, *message_text = message.split(' ')
+        message = ' '.join([timestamp] + message_text)
         # print(message)
         # print(last_message.message)
         editing_message = last_message.message + '\n\n' + message
